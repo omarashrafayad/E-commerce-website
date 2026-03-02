@@ -1,0 +1,32 @@
+import Navbar from "../components/layout/Navbar";
+import Footer from "../components/layout/Footer";
+import "./globals.css";
+import Providers from "./providers";
+import AuthInitializer from "@/components/AuthInitializer";
+import { getProfile } from "@/api/auth";
+import { Toaster } from "@/components/ui/sonner";
+
+export const metadata = {
+  title: "E-Commerce Store",
+  description: "Experience premium shopping.",
+};
+
+export default async function RootLayout({ children }: { children: React.ReactNode }) {
+  const { user, token } = await getProfile();
+
+  return (
+    <html lang="en">
+      <body className="antialiased bg-background text-foreground">
+        <Providers>
+          <AuthInitializer user={user} token={token} />
+          <Toaster />
+        <Navbar />
+        <main className="min-h-screen">
+            {children}
+        </main>
+        <Footer />
+        </Providers>
+      </body>
+    </html>
+  );
+}
