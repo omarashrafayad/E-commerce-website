@@ -2,8 +2,8 @@ import Navbar from "../components/layout/Navbar";
 import Footer from "../components/layout/Footer";
 import "./globals.css";
 import Providers from "./providers";
-import AuthInitializer from "@/components/AuthInitializer";
-import { getProfile } from "@/api/auth";
+import AuthInitializer from "@/features/auth/components/AuthInitializer";
+import { getProfile } from "@/features/auth/api/auth";
 import { Toaster } from "@/components/ui/sonner";
 
 export const metadata = {
@@ -30,3 +30,4 @@ export default async function RootLayout({ children }: { children: React.ReactNo
     </html>
   );
 }
+

@@ -1,13 +1,13 @@
 "use client";
 
 import { Heart } from "lucide-react";
-import { useWishlist, useAddToWishlist, useRemoveFromWishlist } from "@/hooks/useWishlist";
+import { useWishlist, useAddToWishlist, useRemoveFromWishlist } from "@/features/main/shop/hooks/useWishlist";
 import { cn } from "@/lib/utils";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/features/auth/stores/useAuthStore";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 
-import { Product } from "@/types/product.types";
+import { Product } from "@/features/main/shop/types/product.types";
 
 interface WishlistButtonProps {
     productId: string;
@@ -73,3 +73,4 @@ export default function WishlistButton({ productId, className }: WishlistButtonP
         </button>
     );
 }
+

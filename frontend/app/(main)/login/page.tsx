@@ -1,0 +1,10 @@
+import { LoginForm } from "@/features/auth/components/login-form"
+
+export default function LoginPage() {
+  return (
+    <div className="flex min-h-screen flex-col items-center justify-center bg-gray-50/50 p-4">
+        <LoginForm />
+     </div>
+  )
+}
+

@@ -2,10 +2,10 @@
 
 import Link from "next/link";
 import { Trash2, Minus, Plus, Loader2 } from "lucide-react";
-import { useProductById } from "@/hooks/useProducts";
-import { useDeleteCartItem, useUpdateQuantity } from "@/hooks/useCart";
+import { useProductById } from "@/features/main/shop/hooks/useProducts";
+import { useDeleteCartItem, useUpdateQuantity } from "@/features/main/cart/hooks/useCart";
 import { toast } from "sonner";
-import { CartItemProps } from "@/types/cart.types";
+import { CartItemProps } from "@/features/main/cart/types/cart.types";
 
 
 export default function CartItem({ item, readOnly = false }: CartItemProps) {
@@ -170,4 +170,5 @@ export default function CartItem({ item, readOnly = false }: CartItemProps) {
     </li>
   );
 }
+
 

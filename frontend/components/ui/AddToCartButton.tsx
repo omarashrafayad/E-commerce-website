@@ -1,12 +1,12 @@
 "use client";
 
-import { useAddToCart } from "@/hooks/useCart";
+import { useAddToCart } from "@/features/main/cart/hooks/useCart";
 import { Button } from "@/components/ui/button";
 import { ShoppingCart, Loader2 } from "lucide-react";
 import { cn } from "@/lib/utils";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/features/auth/stores/useAuthStore";
 import { toast } from "sonner";
-import { AuthActionResult } from "@/types/auth.types";
+import { AuthActionResult } from "@/features/auth/types/auth.types";
 import { AxiosError } from "axios";
 
 
@@ -58,3 +58,4 @@ export default function AddToCartButton({
     </Button>
   );
 }
+

@@ -3,7 +3,7 @@ import AddToCartButton from "./AddToCartButton";
 import WishlistButton from "./WishlistButton";
 import Image from "next/image";
 import { Star } from "lucide-react";
-import { ICardProduct } from "@/types/product.types";
+import { ICardProduct } from "@/features/main/shop/types/product.types";
 
 
 interface ProductCardProps {
@@ -95,3 +95,4 @@ export default function ProductCard({ product }: ProductCardProps) {
         </div>
     );
 }
+

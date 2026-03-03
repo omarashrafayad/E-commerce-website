@@ -3,7 +3,7 @@
 import React, { useState } from "react";
 import { Input } from "@/components/ui/input";
 import { Button } from "@/components/ui/button";
-import { useApplyCoupon } from "@/hooks/useCart";
+import { useApplyCoupon } from "@/features/main/cart/hooks/useCart";
 import { toast } from "sonner";
 import { AxiosError } from "axios";
 
@@ -55,3 +55,4 @@ export default function CouponInput() {
     </div>
   );
 }
+

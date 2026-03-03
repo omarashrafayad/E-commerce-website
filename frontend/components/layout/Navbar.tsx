@@ -11,11 +11,11 @@ import {
   Search,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useAuthStore } from "@/store/useAuthStore";
+import { useAuthStore } from "@/features/auth/stores/useAuthStore";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { Input } from "../ui/input";
-import { useCart } from "@/hooks/useCart";
+import { useCart } from "@/features/main/cart/hooks/useCart";
 
 export default function Navbar() {
   const { data: cartData } = useCart();
@@ -32,7 +32,7 @@ export default function Navbar() {
   const navLinks = [
     { href: "/", label: "Home" },
     { href: "/shop", label: "Shop" },
-    ...(user?.role === "admin" ? [{ href: "/admin", label: "Dashboard" }] : []),
+    ...(user?.role === "admin" ? [{ href: "/dashboard", label: "Dashboard" }] : []),
     { href: "/about", label: "About" },
     { href: "/contact", label: "Contact" },
   ];
@@ -136,3 +136,4 @@ export default function Navbar() {
     </>
   );
 }
+
