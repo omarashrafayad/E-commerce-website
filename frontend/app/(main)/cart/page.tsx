@@ -76,10 +76,6 @@ export default function Cart() {
                     <div className="rounded-2xl bg-zinc-50 dark:bg-zinc-900/50 border border-border p-6 sm:p-8">
                         <h2 className="text-xl font-bold text-foreground">Order Summary</h2>
 
-                        <div className="mt-6">
-                            <CouponInput />
-                        </div>
-
                         <div className="mt-8 space-y-4">
                             <div className="flex items-center justify-between text-zinc-600 dark:text-zinc-400">
                                 <span className="text-sm">Subtotal</span>

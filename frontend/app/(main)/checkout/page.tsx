@@ -8,7 +8,7 @@ import CartItem from "@/components/ui/CartItem";
 import { useCreateOrder } from "@/features/main/orders/hooks/useOrder";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { checkoutSchema, CheckoutValues } from "@/features/main/checkout/schemas/checkout.schema";
+import { checkoutSchema, CheckoutValues } from "@/features/main/orders/schemas/checkout.schema";
 import { cn } from "@/lib/utils";
 import { useState } from "react";
 import { Label } from "@/components/ui/label";

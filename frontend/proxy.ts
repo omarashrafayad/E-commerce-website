@@ -10,20 +10,20 @@ export function proxy(request: NextRequest) {
   }
 
   if (pathname.startsWith("/login") && token) {
-    const redirectUrl = role === "admin" ? "/admin" : "/profile";
+    const redirectUrl = role === "admin" ? "/dashboard" : "/profile";
     return NextResponse.redirect(new URL(redirectUrl, request.url));
   }
 
-  if (pathname.startsWith("/admin")) {
+  if (pathname.startsWith("/dashboard")) {
     if (!token) {
       return NextResponse.redirect(new URL("/login", request.url));
     }
     if (role !== "admin") {
-      return NextResponse.redirect(new URL("/", request.url)); // تحويل المستخدم العادي للصفحة الرئيسية
+      return NextResponse.redirect(new URL("/", request.url)); 
     }
     
   }
 
   return NextResponse.next();
 }
-export const config = { matcher: ["/profile/:path*", "/login", "/admin/:path*"] };
+export const config = { matcher: ["/profile/:path*", "/login", "/dashboard/:path*"] };
