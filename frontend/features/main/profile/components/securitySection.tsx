@@ -1,31 +1,36 @@
 
 import { Button } from "@/components/ui/button";
-import { Label } from "@/components/ui/label";
-import { Input } from "@/components/ui/input";
 import { toast } from "sonner";
 import { useForm } from "react-hook-form";
-import { updatePasswordSchema, updatePasswordFormData } from "@/features/main/profile/schemas/user.schema";
+import { updatePasswordSchema, updatePasswordFormData } from "../schemas/user.schema";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updatePasswordFormdata } from "@/features/main/profile/hooks/useUser";
+import { useUpdatePasswordFormdata } from "../hooks/useUser";
 import { Lock, ShieldCheck, AlertTriangle } from "lucide-react";
 import { AuthActionResult } from "@/features/auth/types/auth.types";
 import { AxiosError } from "axios";
 import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle } from "@/components/ui/card";
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
+import { UniInput } from "@/components/shared/UniInput";
 
 
 export default function SecuritySection() {
-  const { mutate: updatePassword, isPending } = updatePasswordFormdata();
-  
-  const { 
-    register, 
-    handleSubmit, 
-    formState: { errors }, 
-    reset 
-  } = useForm<updatePasswordFormData>({
+  const { mutate: updatePassword, isPending } = useUpdatePasswordFormdata();
+  const form = useForm<updatePasswordFormData>({
     resolver: zodResolver(updatePasswordSchema),
+    mode: "all",
+    defaultValues: {
+      currentPassword: "",
+      password: "",
+      passwordConfirm: "",
+    },
   });
+
+  const {
+    handleSubmit,
+    control,
+    reset
+  } = form;
 
   const onSubmit = (data: updatePasswordFormData) => {
     updatePassword(data, {
@@ -62,54 +67,42 @@ export default function SecuritySection() {
         <Separator />
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-6 pt-6">
-            <div className="grid gap-2">
-              <Label htmlFor="current" className="font-semibold">Current Password</Label>
-              <Input 
-                id="current" 
-                type="password" 
-                placeholder="••••••••" 
-                className={errors.currentPassword ? "border-destructive" : ""}
-                {...register("currentPassword")} 
-              />
-              {errors.currentPassword && (
-                <p className="text-xs text-destructive font-medium">{errors.currentPassword.message}</p>
-              )}
-            </div>
+
+            <UniInput
+              control={control}
+              name="currentPassword"
+              label="Current Password"
+              placeholder="Enter your current password"
+              type="password"
+              className="grid gap-2"
+            />
 
             <Separator className="opacity-50" />
 
             <div className="grid gap-4 sm:grid-cols-2">
-              <div className="grid gap-2">
-                <Label htmlFor="new" className="font-semibold">New Password</Label>
-                <Input 
-                  id="new" 
-                  type="password" 
-                  placeholder="••••••••" 
-                  className={errors.password ? "border-destructive" : ""}
-                  {...register("password")} 
-                />
-                {errors.password && (
-                  <p className="text-xs text-destructive font-medium">{errors.password.message}</p>
-                )}
-              </div>
-              <div className="grid gap-2">
-                <Label htmlFor="confirm" className="font-semibold">Confirm New Password</Label>
-                <Input 
-                  id="confirm" 
-                  type="password" 
-                  placeholder="••••••••" 
-                  className={errors.passwordConfirm ? "border-destructive" : ""}
-                  {...register("passwordConfirm")} 
-                />
-                {errors.passwordConfirm && (
-                  <p className="text-xs text-destructive font-medium">{errors.passwordConfirm.message}</p>
-                )}
-              </div>
+
+              <UniInput
+                control={control}
+                name="password"
+                label="New Password"
+                placeholder="Enter your new password"
+                type="password"
+                className="grid gap-2"
+              />
+
+              <UniInput
+                control={control}
+                name="passwordConfirm"
+                label="Confirm New Password"
+                placeholder="Enter your confirm new password"
+                type="password"
+                className="grid gap-2"
+              />
             </div>
           </CardContent>
           <CardFooter className="bg-muted/30 border-t px-6 py-4 flex justify-end">
-            <Button 
-              type="submit" 
+            <Button
+              type="submit"
               disabled={isPending}
               className="gap-2 px-8 shadow-md hover:shadow-lg transition-all active:scale-95"
             >
@@ -122,4 +115,3 @@ export default function SecuritySection() {
     </div>
   );
 }
-

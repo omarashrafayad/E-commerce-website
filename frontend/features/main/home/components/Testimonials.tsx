@@ -40,7 +40,7 @@ export default function Testimonials() {
                             What Our Customers Say
                         </h2>
                         <p className="mt-4 text-lg text-zinc-500 dark:text-zinc-400">
-                            Don't just take our word for it. Read reviews from satisfied customers.
+                        &apos;t just take our word for it. Read reviews from satisfied customers.
                         </p>
                     </div>
                 </ScrollReveal>
@@ -61,7 +61,7 @@ export default function Testimonials() {
                                 </div>
 
                                 <blockquote className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
-                                    "{testimonial.content}"
+                                    {testimonial.content}
                                 </blockquote>
 
                                 <div className="mt-8 flex items-center gap-x-4">

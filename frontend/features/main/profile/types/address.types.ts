@@ -9,4 +9,3 @@ export interface AddressResponse {
     results: number;
     data: IAddress[];
 }
-

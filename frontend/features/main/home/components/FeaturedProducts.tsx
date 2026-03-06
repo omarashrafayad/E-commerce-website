@@ -1,8 +1,8 @@
-// import ProductCard from "@/components/shared/ProductCard";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { Product } from "@/features/main/home/types/home.types";
-import SkeletonGrid from "@/components/ui/SkeletonGrid";
-import ProductCard from "@/components/ui/ProductCard";
+import SkeletonGrid from "@/components/shared/SkeletonGrid";
+import ProductCard from "@/features/main/shop/components/ProductCard";
+import GlobalError from "@/components/shared/globalerror";
 
 interface Props {
   products: Product[];
@@ -12,21 +12,7 @@ interface Props {
 
 export default function TrendingNow({ products, isPending, error }: Props) {
   if (error) {
-    return (
-      <section className="py-16 sm:py-24 bg-white dark:bg-zinc-950">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal direction="left">
-            <div className="flex justify-between items-end mb-8">
-              <div>
-                <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Trending Now</h2>
-                <p className="mt-2 text-muted-foreground">The most popular items this week.</p>
-              </div>
-            </div>
-          </ScrollReveal>
-          <div className="text-center text-red-500">Error: {error.message}</div>
-        </div>
-      </section>
-    );
+    return <GlobalError error = {error}/>
   }
   return (
     <section className="py-16 sm:py-24 bg-white dark:bg-zinc-950">
@@ -41,10 +27,10 @@ export default function TrendingNow({ products, isPending, error }: Props) {
         </ScrollReveal>
 
         {isPending ? (
-          <SkeletonGrid 
-            count={4} 
-            type="product" 
-            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4" 
+          <SkeletonGrid
+            count={4}
+            type="product"
+            className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4"
           />
         ) : (
           <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-4">

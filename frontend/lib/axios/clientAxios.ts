@@ -1,5 +1,5 @@
 
-import { useAuthStore } from "@/features/auth/stores/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 import axios, { AxiosInstance } from "axios";
 
 export const clientAxios: AxiosInstance = axios.create({

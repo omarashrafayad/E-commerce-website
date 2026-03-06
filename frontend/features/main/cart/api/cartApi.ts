@@ -1,5 +1,9 @@
 import clientAxios from "@/lib/axios/clientAxios";
 
+export interface UpdateQuantityPayload {
+  cartItemId: string;
+  quantity: number;
+}
 export const addToCart = async (productId: string) => {
   const res = await clientAxios.post("cart", { productId });
   return res.data;
@@ -11,10 +15,6 @@ export const getCart = async () => {
 };
 
 
-export interface UpdateQuantityPayload {
-  cartItemId: string;
-  quantity: number;
-}
 
 export const updateCartQuantity = async ({
   cartItemId,

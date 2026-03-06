@@ -90,12 +90,12 @@ const productSchema = new mongoose.Schema<IProduct>(
     { timestamps: true }
 );
 
-// productSchema.pre(/^find/, function () {
-//     (this as any).populate({
-//         path: 'category',
-//         select: 'name image _id',
-//     });
-// });
+productSchema.pre(/^find/, function () {
+    (this as any).populate({
+        path: 'category',
+        select: 'name image _id',
+    });
+});
 
 const setImageURL = (doc: IProduct) => {
     if (doc.imageCover) {

@@ -1,5 +1,5 @@
-import { IAddress } from "./address.types";
-import { ICartItem } from "./cart.types";
+import { ICartItem } from "../../cart/types/cart.types";
+import { IAddress } from "../../profile/types/address.types";
 
 export interface IOrder {
     _id: string;

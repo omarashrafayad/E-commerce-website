@@ -1,7 +1,7 @@
 "use client";
 
 import { useEffect } from "react";
-import { useAuthStore } from "@/features/auth/stores/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { User } from "@/features/auth/types/auth.types";
 
 interface AuthInitializerProps {
@@ -17,9 +17,9 @@ export default function AuthInitializer({ user, token }: AuthInitializerProps) {
       setAuth(user);
       setToken(token);
     } else {
-        logout(); 
+      logout();
     }
-  }, [user, token, setAuth, setToken]);
+  }, [user, token, setAuth, setToken, logout]);
 
   return null;
 }

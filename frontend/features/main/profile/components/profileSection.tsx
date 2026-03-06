@@ -1,19 +1,11 @@
-// import { Avatar, AvatarFallback, AvatarImage } from "./ui/avatar";
-// import { Button } from "./ui/button";
-// import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "./ui/card";
-// import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "./ui/dialog";
-// import { Input } from "./ui/input";
-// import { Label } from "./ui/label";
+
 import { toast } from "sonner";
 import { Edit2, Camera } from "lucide-react";
-// import { Badge } from "./ui/badge";
 import { AuthActionResult, User } from "@/features/auth/types/auth.types";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
-import { updateProfileSchema, updateProfileFormData } from "@/features/main/profile/schemas/user.schema";
 import { useState } from "react";
-import { updateProfileFormdata } from "@/features/main/profile/hooks/useUser";
-import { useAuthStore } from "@/features/auth/stores/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { AxiosError } from "axios";
 import { cn } from "@/lib/utils";
 import { Card, CardContent, CardDescription, CardHeader, CardTitle } from "@/components/ui/card";
@@ -22,21 +14,50 @@ import { Avatar, AvatarFallback, AvatarImage } from "@/components/ui/avatar";
 import { Label } from "@/components/ui/label";
 import { Input } from "@/components/ui/input";
 import { Badge } from "@/components/ui/badge";
-import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/components/ui/dialog";
+import { Dialog, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger, DialogClose } from "@/components/ui/dialog";
+import { updateProfileFormData, updateProfileSchema } from "../schemas/user.schema";
+import { useUpdateProfileFormdata } from "../hooks/useUser";
+import { UniInput } from "@/components/shared/UniInput";
+import { Form } from "@/components/ui/form";
+import { useEffect } from "react";
 
 export default function ProfileSection({ user }: { user: User }) {
-  const {
-    register,
-    handleSubmit,
-    formState: { errors, isSubmitting },
-  } = useForm<updateProfileFormData>({
+
+  const form = useForm<updateProfileFormData>({
     resolver: zodResolver(updateProfileSchema),
+    mode: "all",
+    defaultValues: {
+      email: "",
+      name: "",
+      phone: "",
+      profileImg: "",
+    },
   });
+
+  const {
+    handleSubmit,
+    control,
+    register,
+    formState: { isSubmitting },
+  } = form;
+
   const [preview, setPreview] = useState<string | null>(null);
   const [isOpen, setIsOpen] = useState(false);
 
+  useEffect(() => {
+    if (isOpen) {
+      form.reset({
+        name: user.name || "",
+        email: user.email || "",
+        phone: user.phone || "",
+        profileImg: "",
+      });
+      setPreview(user.profileImg || null);
+    }
+  }, [isOpen, user, form]);
+
   const { setAuth } = useAuthStore();
-  const { mutate } = updateProfileFormdata();
+  const { mutate } = useUpdateProfileFormdata();
   const onSubmit = async (data: updateProfileFormData) => {
     try {
       const formData = new FormData();
@@ -52,12 +73,13 @@ export default function ProfileSection({ user }: { user: User }) {
       }
 
       mutate(formData, {
-        onSuccess: (res: AuthActionResult) => {
-          if (res.data) {
-            setAuth(res.data.data);
+        onSuccess: (res: any) => {
+          // The backend returns { data: user }
+          if (res?.data) {
+            setAuth(res.data);
+            toast.success("Profile updated successfully!");
+            setIsOpen(false);
           }
-          toast.success(res.message || "Profile updated successfully!");
-          setIsOpen(false);
         },
         onError: (err: Error) => {
           const axiosError = err as AxiosError<{ message?: string }>;
@@ -65,7 +87,7 @@ export default function ProfileSection({ user }: { user: User }) {
         }
       });
     } catch (error) {
-      toast.error("An unexpected error occurred. Please try again later.");
+      toast.error(error as string || "An unexpected error occurred. Please try again later.");
     }
   };
   return (
@@ -84,79 +106,90 @@ export default function ProfileSection({ user }: { user: User }) {
               </Button>
             </DialogTrigger>
 
-            <DialogContent className="max-w-md rounded-3xl p-0 border-none overflow-hidden">
-              <form onSubmit={handleSubmit(onSubmit)}>
-                <DialogHeader className="p-6 border-b border-zinc-100 dark:border-zinc-800">
-                  <DialogTitle className="text-xl font-bold">Edit Profile</DialogTitle>
-                  <DialogDescription>
-                    Update your account information below.
-                  </DialogDescription>
-                </DialogHeader>
+            <DialogContent className="w-[95vw] sm:max-w-md rounded-[2.5rem] p-0 border-none overflow-hidden max-h-[90vh] flex flex-col outline-none">
+              <Form {...form}>
+                <form onSubmit={handleSubmit(onSubmit)} className="flex flex-col flex-1 overflow-hidden">
+                  <DialogHeader className="p-6 border-b border-zinc-100 dark:border-zinc-800">
+                    <DialogTitle className="text-xl font-bold">Edit Profile</DialogTitle>
+                    <DialogDescription>
+                      Update your account information below.
+                    </DialogDescription>
+                  </DialogHeader>
 
-                <div className="p-6 space-y-6">
-                  {/* Photo Upload */}
-                  <div className="flex flex-col items-center gap-4">
-                    <div className="relative group">
-                      <Avatar className="h-24 w-24 border-4 border-zinc-50 dark:border-zinc-900 shadow-xl">
-                        <AvatarImage src={preview || user.profileImg} alt={user.name} className="object-cover" />
-                        <AvatarFallback className="text-3xl font-black bg-primary/5 text-primary">
-                          {user.name?.slice(0, 1).toUpperCase()}
-                        </AvatarFallback>
-                      </Avatar>
-                      <Label htmlFor="profileImg" className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer backdrop-blur-[2px]">
-                        <Camera className="text-white w-7 h-7" />
-                      </Label>
-                      <Input
-                        id="profileImg"
-                        type="file"
-                        className="hidden"
-                        accept="image/*"
-                        {...register("profileImg", {
-                          onChange: (e) => {
-                            const file = e.target.files?.[0];
-                            if (file) {
-                              setPreview(URL.createObjectURL(file));
+                  <div className="p-6 space-y-6 overflow-y-auto custom-scrollbar">
+                    {/* Photo Upload */}
+                    <div className="flex flex-col items-center gap-4">
+                      <div className="relative group">
+                        <Avatar className="h-24 w-24 border-4 border-zinc-50 dark:border-zinc-900 shadow-xl">
+                          <AvatarImage src={preview || user.profileImg} alt={user.name} className="object-cover" />
+                          <AvatarFallback className="text-3xl font-black bg-primary/5 text-primary">
+                            {user.name?.slice(0, 1).toUpperCase()}
+                          </AvatarFallback>
+                        </Avatar>
+                        <Label htmlFor="profileImg" className="absolute inset-0 rounded-full bg-black/40 flex items-center justify-center opacity-0 group-hover:opacity-100 transition-all duration-300 cursor-pointer backdrop-blur-[2px]">
+                          <Camera className="text-white w-7 h-7" />
+                        </Label>
+                        <Input
+                          id="profileImg"
+                          type="file"
+                          className="hidden"
+                          accept="image/*"
+                          {...register("profileImg", {
+                            onChange: (e) => {
+                              const file = e.target.files?.[0];
+                              if (file) {
+                                setPreview(URL.createObjectURL(file));
+                              }
                             }
-                          }
-                        })}
+                          })}
+                        />
+                      </div>
+                      <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">Tap to change photo</p>
+                    </div>
+
+                    <div className="space-y-4">
+                      <UniInput
+                        control={control}
+                        name="name"
+                        label="Name"
+                        placeholder="Enter your name"
+                        type="text"
+                        required
+                        className="space-y-2"
+                      />
+
+                      <UniInput
+                        control={control}
+                        name="email"
+                        label="Email Address"
+                        placeholder="Enter your email"
+                        type="email"
+                        required
+                        className="space-y-2"
+                      />
+
+                      <UniInput
+                        control={control}
+                        name="phone"
+                        label="Phone Number"
+                        placeholder="Enter your phone"
+                        type="text"
+                        required
+                        className="space-y-2"
                       />
                     </div>
-                    <p className="text-[10px] text-zinc-400 font-bold uppercase tracking-widest">Tap to change photo</p>
                   </div>
 
-                  <div className="space-y-4">
-                    <div className="space-y-2">
-                      <Label htmlFor="name" className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">Full Name</Label>
-                      <Input id="name" defaultValue={user.name} {...register("name")} className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none px-4" />
-                      {errors.name && <p className="text-red-500 text-xs mt-1 font-medium">{errors.name.message}</p>}
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="email" className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">Email Address</Label>
-                      <Input
-                        id="email"
-                        defaultValue={user.email}
-                        readOnly
-                        className="h-12 rounded-xl bg-zinc-100 dark:bg-zinc-800/50 border-none px-4 opacity-70 cursor-not-allowed"
-                        {...register("email")}
-                      />
-                    </div>
-
-                    <div className="space-y-2">
-                      <Label htmlFor="phone" className="text-xs font-bold uppercase tracking-widest text-zinc-400 ml-1">Phone Number</Label>
-                      <Input id="phone" defaultValue={user.phone} {...register("phone")} className="h-12 rounded-xl bg-zinc-50 dark:bg-zinc-900 border-none px-4" />
-                      {errors.phone && <p className="text-red-500 text-xs mt-1 font-medium">{errors.phone.message}</p>}
-                    </div>
-                  </div>
-                </div>
-
-                <DialogFooter className="p-6 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/30">
-                  <Button type="button" variant="ghost" onClick={() => setIsOpen(false)} className="rounded-xl h-12 max-md:mt-2">Cancel</Button>
-                  <Button type="submit" disabled={isSubmitting} className="rounded-xl h-12 px-8 font-black shadow-lg shadow-primary/20">
-                    {isSubmitting ? "Saving..." : "Save Changes"}
-                  </Button>
-                </DialogFooter>
-              </form>
+                  <DialogFooter className="p-6 flex flex-col-reverse sm:flex-row gap-3 border-t border-zinc-100 dark:border-zinc-800 bg-zinc-50/30 dark:bg-zinc-900/30">
+                    <DialogClose asChild>
+                      <Button type="button" variant="ghost" className="rounded-xl h-12 w-full sm:w-auto font-bold">Cancel</Button>
+                    </DialogClose>
+                    <Button type="submit" disabled={isSubmitting} className="rounded-xl h-12 px-8 w-full sm:w-auto font-black shadow-lg shadow-primary/20 cursor-pointer">
+                      {isSubmitting ? "Saving..." : "Save Changes"}
+                    </Button>
+                  </DialogFooter>
+                </form>
+              </Form>
             </DialogContent>
           </Dialog>
         </div>

@@ -1,22 +1,22 @@
 "use client";
 
 import { Star } from 'lucide-react';
-import { useCategories } from "@/features/main/shop/hooks/useCategories";
+import { useCategories } from "@/features/main/category/hooks/useCategories";
 import { Spinner } from '@/components/ui/spinner';
 import { Category } from '@/features/main/home/types/home.types';
 
 interface ShopFiltersProps {
-  onCategoryChange: (category: string | undefined) => void;
-  selectedCategory?: string;
-  selectedRating?: number;
-  onRatingChange: (rating: number | undefined) => void;
+    onCategoryChange: (category: string | undefined) => void;
+    selectedCategory?: string;
+    selectedRating?: number;
+    onRatingChange: (rating: number | undefined) => void;
 }
 
 export default function ShopFilters({
-  onCategoryChange,
-  selectedCategory,
-  selectedRating,
-  onRatingChange,
+    onCategoryChange,
+    selectedCategory,
+    selectedRating,
+    onRatingChange,
 }: ShopFiltersProps) {
     const { data: categoriesData, isLoading } = useCategories();
     const categories = categoriesData?.data || [];
@@ -46,7 +46,7 @@ export default function ShopFilters({
                     </div>
                     {isLoading ? (
                         <div className="text-sm text-muted-foreground">
-                            <Spinner/>
+                            <Spinner />
                         </div>
                     ) : (
                         categories.map((category: Category) => (

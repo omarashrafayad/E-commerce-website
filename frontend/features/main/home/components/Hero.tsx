@@ -7,14 +7,12 @@ import { ArrowRight, Clock, ShoppingBag, Zap } from "lucide-react";
 export default function Hero() {
     return (
         <section className="relative overflow-hidden bg-gradient-to-br from-[#1e1b4b] via-[#312e81] to-[#0f172a] pb-16 pt-16 md:pt-24 lg:pb-32 xl:pb-36 min-h-[600px] flex items-center">
-            {/* Background decoration */}
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_top_right,_var(--tw-gradient-stops))] from-purple-500/20 via-transparent to-transparent opacity-40"></div>
             <div className="absolute inset-0 -z-10 bg-[radial-gradient(circle_at_bottom_left,_var(--tw-gradient-stops))] from-indigo-500/20 via-transparent to-transparent opacity-40"></div>
 
             <div className="container mx-auto px-4 sm:px-6 lg:px-8 relative z-10">
                 <div className="grid grid-cols-1 lg:grid-cols-2 gap-12 items-center">
 
-                    {/* Left Column: Text Content */}
                     <div className="text-center lg:text-left space-y-8">
                         <div>
                             <span className="inline-block px-4 py-2 rounded-full bg-indigo-500/10 border border-indigo-500/20 text-indigo-300 font-medium text-sm mb-6 backdrop-blur-sm">
@@ -30,7 +28,6 @@ export default function Hero() {
                             </p>
                         </div>
 
-                        {/* Badges / Features */}
                         <div className="flex flex-wrap justify-center lg:justify-start gap-4">
                             <div className="flex items-center gap-3 bg-white/5 border border-white/10 px-5 py-3 rounded-2xl backdrop-blur-md hover:bg-white/10 transition-colors">
                                 <div className="p-2 bg-yellow-500/20 rounded-full">
@@ -61,7 +58,6 @@ export default function Hero() {
                             </div>
                         </div>
 
-                        {/* CTA Buttons */}
                         <div className="flex flex-col sm:flex-row items-center justify-center lg:justify-start gap-4 pt-4">
                             <Link
                                 href="/shop"
@@ -78,31 +74,24 @@ export default function Hero() {
                         </div>
                     </div>
 
-                    {/* Right Column: 3D Image */}
                     <div className="relative transform lg:translate-x-10">
                         <div className="relative mx-auto max-w-[500px] lg:max-w-none">
-                            {/* Glow Effects */}
                             <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[120%] h-[120%] bg-indigo-500/20 rounded-full blur-3xl animate-pulse"></div>
 
-                            {/* Main Image */}
                             <Image
                                 src="/hero-3d-removebg-preview.png"
-                                alt="E-commerce Mobile Experience" // Updated alt text
+                                alt="E-commerce Mobile Experience" 
                                 width={800}
                                 height={800}
                                 priority
                                 className="relative z-10 w-full h-auto drop-shadow-2xl animate-[float_6s_ease-in-out_infinite] max-md:hidden"
                             />
-
-                            {/* Floating Elements (Decorative) */}
                             <div className="absolute -top-10 -right-10 w-20 h-20 bg-purple-500/30 rounded-full blur-xl animate-bounce delay-700"></div>
                             <div className="absolute bottom-10 -left-10 w-32 h-32 bg-indigo-500/30 rounded-full blur-xl animate-bounce delay-1000"></div>
                         </div>
                     </div>
                 </div>
             </div>
-
-            {/* Custom Animation Styles */}
             <style jsx global>{`
                 @keyframes float {
                     0% { transform: translateY(0px); }

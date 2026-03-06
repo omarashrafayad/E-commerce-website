@@ -1,8 +1,10 @@
 import Link from "next/link";
+import Image from "next/image";
 import { ArrowRight } from "lucide-react";
 import ScrollReveal from "@/components/ui/ScrollReveal";
 import { Category } from "@/features/main/home/types/home.types";
-import { Spinner } from "@/components/ui/spinner";
+import SkeletonGrid from "@/components/shared/SkeletonGrid";
+import GlobalError from "@/components/shared/globalerror";
 
 interface Props {
   categories: Category[];
@@ -10,28 +12,9 @@ interface Props {
   error: Error | null;
 }
 
-import SkeletonGrid from "@/components/ui/SkeletonGrid";
-
 export default function ShopByCategory({ categories, isPending, error }: Props) {
   if (error) {
-    return (
-      <section className="py-16 sm:py-24">
-        <div className="container mx-auto px-4 sm:px-6 lg:px-8">
-          <ScrollReveal direction="left">
-            <div className="flex justify-between items-end mb-8">
-              <div>
-                <h2 className="text-3xl font-bold tracking-tight text-foreground sm:text-4xl">Shop by Category</h2>
-                <p className="mt-2 text-muted-foreground">Browse our curated collections.</p>
-              </div>
-              <Link href="/categories" className="hidden sm:flex items-center gap-1 text-primary hover:text-indigo-500 transition-colors font-medium">
-                View all <ArrowRight className="size-4" />
-              </Link>
-            </div>
-          </ScrollReveal>
-          <div className="text-center text-red-500">Error: {error.message}</div>
-        </div>
-      </section>
-    );
+    return <GlobalError error = {error}/>
   }
   return (
     <section className="py-16 sm:py-24">
@@ -55,14 +38,17 @@ export default function ShopByCategory({ categories, isPending, error }: Props) 
             {categories.map((category, index) => (
               <ScrollReveal key={category._id} direction="up" delay={index * 0.2}>
                 <Link href={`/shop?category=${category.name}`} className="group relative overflow-hidden rounded-lg block h-full">
-                  <div className="aspect-[4/3] w-full overflow-hidden bg-gray-200">
-                    <img
+                  <div className="relative aspect-4/3 w-full overflow-hidden bg-gray-200">
+                    <Image
                       src={category.image}
                       alt={category.name}
-                      className="h-full w-full object-cover object-center group-hover:opacity-75 group-hover:scale-105 transition-transform duration-300"
+                      fill
+                      unoptimized
+                      sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+                      className="object-cover object-center group-hover:opacity-75 group-hover:scale-105 transition-transform duration-300"
                     />
                   </div>
-                  <div className="absolute inset-0 bg-gradient-to-t from-black/60 to-transparent flex items-end p-6">
+                  <div className="absolute inset-0 bg-linear-to-t from-black/60 to-transparent flex items-end p-6">
                     <div>
                       <h3 className="text-xl font-bold text-white mb-1">{category.name}</h3>
                       <span className="text-sm text-zinc-200">Shop Now</span>

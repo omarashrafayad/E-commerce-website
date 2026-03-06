@@ -11,7 +11,7 @@ import {
   Search,
 } from "lucide-react";
 import { usePathname } from "next/navigation";
-import { useAuthStore } from "@/features/auth/stores/useAuthStore";
+import { useAuthStore } from "@/stores/useAuthStore";
 import { useEffect, useState } from "react";
 import MobileMenu from "./MobileMenu";
 import { Input } from "../ui/input";

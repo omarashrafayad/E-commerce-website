@@ -3,12 +3,7 @@
 import { useMutation, useQueryClient, useQuery } from "@tanstack/react-query";
 import {
     createOrder,
-    CreateOrderPayload,
     getOrderById,
-    getOrders,
-    deleteOrder,
-    updateOrderToPaid,
-    updateOrderToDelivered
 } from "@/features/main/orders/api/orderApi";
 
 export const useCreateOrder = () => {
@@ -24,12 +19,6 @@ export const useCreateOrder = () => {
     });
 };
 
-export const useOrders = (params: { page?: number; limit?: number } = {}) => {
-    return useQuery({
-        queryKey: ["order", params],
-        queryFn: () => getOrders(params),
-    });
-}
 
 export const useOrderById = (orderId: string) => {
     return useQuery({
@@ -38,30 +27,4 @@ export const useOrderById = (orderId: string) => {
     });
 };
 
-export const useDeleteOrder = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: (id: string) => deleteOrder(id),
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["order"] });
-        },
-    });
-};
-
-export const useUpdateOrderStatus = () => {
-    const queryClient = useQueryClient();
-    return useMutation({
-        mutationFn: ({ id, status }: { id: string, status: string }) => {
-            if (status === "paid") {
-                return updateOrderToPaid(id);
-            } else if (status === "delivered") {
-                return updateOrderToDelivered(id);
-            }
-            throw new Error(`Invalid status: ${status}`);
-        },
-        onSuccess: () => {
-            queryClient.invalidateQueries({ queryKey: ["order"] });
-        },
-    });
-};
 

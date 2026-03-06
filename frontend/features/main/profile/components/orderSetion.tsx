@@ -1,28 +1,27 @@
 
 import { Package } from "lucide-react";
-import { useOrders } from "@/features/main/orders/hooks/useOrder";
 import Link from "next/link";
 import { IOrder } from "@/features/main/orders/types/order.types";
 import { cn } from "@/lib/utils";
 import { MoveRight } from "lucide-react";
-import { Spinner } from "@/components/ui/spinner";
 import { Badge } from "@/components/ui/badge";
 import { Card, CardContent } from "@/components/ui/card";
 import EmptyState from "@/components/ui/EmptyState";
+import { useOrders } from "@/features/dashboard/orders/hooks/useOrder";
+import LoadingSpinner from "@/components/shared/LoadingSpinner";
 
 export default function OrdersSection() {
   const { data: ordersMutate, isPending } = useOrders();
-
-  if (isPending) {
-    return (
-      <div className="flex flex-col items-center justify-center h-64 gap-4">
-        <Spinner />
-        <p className="text-zinc-500 text-sm animate-pulse font-medium">Retrieving your orders...</p>
-      </div>
-    );
-  }
-
   const orders = ordersMutate?.data || [];
+  
+ if (isPending) {
+     return(
+       <div className="h-[50vh] flex items-center justify-center">
+         <LoadingSpinner/>
+       </div>
+     )
+   }
+
 
   return (
     <div className="space-y-6">
@@ -105,4 +104,3 @@ export default function OrdersSection() {
     </div>
   );
 }
-
