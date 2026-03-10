@@ -35,3 +35,6 @@ config.env*
 .vercel
 
 
+
+.vercel
+.env*.local
