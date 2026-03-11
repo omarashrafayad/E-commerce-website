@@ -4,7 +4,6 @@ import axios, { AxiosInstance } from "axios";
 
 export const clientAxios: AxiosInstance = axios.create({
   baseURL: "http://localhost:5000/api/v1/",
-  withCredentials: true, 
   headers: { Accept: "application/json" },
 });
 

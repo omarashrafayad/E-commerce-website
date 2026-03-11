@@ -1,5 +1,5 @@
 import mongoose, { Document, Schema, Types } from 'mongoose';
-import slugify from 'slugify';
+
 
 export interface ICategory extends Document {
     name: string;

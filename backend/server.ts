@@ -26,18 +26,18 @@ dotenv.config({ path: './config.env' })
 DBconnection();
 
 const app = express();
-// app.use(cors());
-// app.options(/.*/, cors());
+app.use(cors());
+app.options(/.*/, cors());
 
-app.use(cors({
-  origin: "http://localhost:3000",
-  credentials: true,
-}));
+// app.use(cors({
+//   origin: "http://localhost:3000",
+//   credentials: true,
+// }));
 
-app.options(/.*/, cors({
-  origin: "http://localhost:3000",
-  credentials: true,
-}));
+// app.options(/.*/, cors({
+//   origin: "http://localhost:3000",
+//   credentials: true,
+// }));
 app.use(express.json());
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.set('query parser', 'extended');
@@ -63,6 +63,9 @@ app.all(/.*/, (req: Request, res: Response, next: NextFunction) => {
 app.use(globalError)
 
 const PORT = process.env.PORT || 5000
-app.listen(PORT, () => {
-  console.log(`App running running on port ${PORT}`);
-});
+if (process.env.NODE_ENV !== "production") {
+  app.listen(PORT, () => {
+    console.log(`Server running on port ${PORT}`);
+  });
+}
+export default app;

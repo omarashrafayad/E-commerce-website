@@ -5,6 +5,7 @@ import { cookies } from "next/headers";
 
 export const serverAxios: AxiosInstance = axios.create({
   baseURL: "http://localhost:5000/api/v1/",
+  withCredentials: true,
   headers: { "Content-Type": "application/json", Accept: "application/json" },
 });
 
