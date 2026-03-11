@@ -3,7 +3,7 @@ export type { Product };
 export interface Category {
   _id: string;
   name: string;
-  image: string;
+  image?: string;
 }
 export interface HomeResponse {
   shopByCategory: Category[];

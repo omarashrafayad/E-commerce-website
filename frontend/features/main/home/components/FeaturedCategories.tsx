@@ -40,7 +40,7 @@ export default function ShopByCategory({ categories, isPending, error }: Props) 
                 <Link href={`/shop?category=${category.name}`} className="group relative overflow-hidden rounded-lg block h-full">
                   <div className="relative aspect-4/3 w-full overflow-hidden bg-gray-200">
                     <Image
-                      src={category.image}
+                      src={category.image || "https://images.unsplash.com/photo-1707333033282-e3006456729a?auto=format&fit=crop&q=80&w=800"}
                       alt={category.name}
                       fill
                       unoptimized

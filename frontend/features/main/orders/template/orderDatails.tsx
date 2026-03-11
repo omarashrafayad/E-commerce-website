@@ -1,6 +1,6 @@
 "use client";
-import  { use } from 'react';
-import {  CreditCard, Calendar,  MapPin, ChevronRight, ShoppingBag, Loader2 } from 'lucide-react';
+import { use } from 'react';
+import { CreditCard, Calendar, MapPin, ChevronRight, ShoppingBag, Loader2 } from 'lucide-react';
 import Link from 'next/link';
 import { useOrderById } from '@/features/main/orders/hooks/useOrder';
 import { ICartItem } from '@/features/main/cart/types/cart.types';
@@ -84,7 +84,7 @@ export default function OrderDetailsPage({ params }: { params: Promise<{ id: str
                                         </span>
                                     </div>
                                 </div>
-                                <div className="flex flex-col items-end gap-2">
+                                <div className="flex flex-col items-start md:items-end gap-2">
                                     <StatusBadge status={order.isDelivered ? 'Delivered' : 'Processing'} />
                                     {order.isPaid ? <span className="text-xs bg-green-100 text-green-800 px-2 py-1 rounded-full">Paid</span> : <span className="text-xs bg-yellow-100 text-yellow-800 px-2 py-1 rounded-full">Unpaid</span>}
                                 </div>

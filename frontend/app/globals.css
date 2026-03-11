@@ -4,6 +4,7 @@
 @custom-variant dark (&:is(.dark *));
 
 :root {
+  color-scheme: light;
   /* Base Colors - Zinc/Neutral for a clean look */
   /* Zinc 950 */
 
@@ -59,17 +60,14 @@
   --sidebar-ring: oklch(0.708 0 0);
 }
 
-@media (prefers-color-scheme: dark) {
+ /* @media (prefers-color-scheme: dark) {
   :root {
-    /* Zinc 950 */
-    /* Zinc 50 */
-
+   
+    
     --primary: #6366f1;
-    /* Indigo 500 */
     --primary-foreground: #ffffff;
 
     --secondary: #27272a;
-    /* Zinc 800 */
     --secondary-foreground: #fafafa;
 
     --card: #09090b;
@@ -78,19 +76,18 @@
     --popover-foreground: #fafafa;
     --muted: #27272a;
     --muted-foreground: #a1a1aa;
-    /* Zinc 400 */
     --accent: #27272a;
     --accent-foreground: #fafafa;
 
     --destructive: #7f1d1d;
-    /* Red 900 */
     --destructive-foreground: #fafafa;
 
     --border: #27272a;
     --input: #27272a;
     --ring: #6366f1;
   }
-}
+}  */
+
 
 @theme inline {
   --color-background: var(--background);
@@ -152,7 +149,7 @@ body {
 
 }
 
-.dark {
+/* .dark {
   --background: oklch(0.145 0 0);
   --foreground: oklch(0.985 0 0);
   --card: oklch(0.205 0 0);
@@ -184,7 +181,7 @@ body {
   --sidebar-accent-foreground: oklch(0.985 0 0);
   --sidebar-border: oklch(1 0 0 / 10%);
   --sidebar-ring: oklch(0.556 0 0);
-}
+} */
 
 @layer base {
   * {

@@ -4,7 +4,6 @@ import { useRouter } from "next/navigation";
 import { CreditCard, Truck, Loader2 } from "lucide-react";
 import CouponInput from "@/features/main/cart/components/CouponInput";
 import { useCart } from "@/features/main/cart/hooks/useCart";
-// import CartItem from "@/components/ui/CartItem";
 import { useCreateOrder } from "@/features/main/orders/hooks/useOrder";
 import { useForm } from "react-hook-form";
 import { zodResolver } from "@hookform/resolvers/zod";
@@ -132,7 +131,7 @@ export default function Checkout() {
                                             <CreditCard className="size-4" />
                                         </div>
                                         <span className={cn(
-                                            "font-medium transition-colors",
+                                            "font-medium transition-colors text-xs md:text-sm",
                                             paymentMethod === 'card' ? 'text-foreground' : 'text-muted-foreground'
                                         )}>Credit Card</span>
                                     </div>
@@ -152,7 +151,7 @@ export default function Checkout() {
                                             <Truck className="size-4" />
                                         </div>
                                         <span className={cn(
-                                            "font-medium transition-colors",
+                                            "font-medium transition-colors text-xs md:text-sm",
                                             paymentMethod === 'cash' ? 'text-foreground' : 'text-muted-foreground'
                                         )}>Cash on Delivery</span>
                                     </div>
