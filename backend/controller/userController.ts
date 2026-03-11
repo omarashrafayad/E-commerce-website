@@ -1,7 +1,7 @@
 import asyncHandler from 'express-async-handler';
 import multer from 'multer';
 import sharp from 'sharp';
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { Request, Response, NextFunction } from 'express';
 import ApiError from '../utils/apiError';
 import * as factory from './handleFactory';
@@ -14,7 +14,7 @@ export const uploadUserImage = uploadSingleImage('profileImg');
 
 
 export const resizeImage = asyncHandler(async (req, res, next) => {
-    const filename = `user-${uuidv4()}-${Date.now()}.jpeg`;
+    const filename = `user-${crypto.randomUUID()}-${Date.now()}.jpeg`;
 
     if (req.file) {
         await sharp(req.file.buffer)
@@ -35,7 +35,7 @@ export const resizeUserImage = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         if (!req.file) return next();
 
-        const filename = `product-${uuidv4()}-${Date.now()}.jpeg`;
+        const filename = `product-${crypto.randomUUID()}-${Date.now()}.jpeg`;
 
         await sharp(req.file.buffer)
             .resize(600, 600)

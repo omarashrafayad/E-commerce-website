@@ -1,8 +1,8 @@
-import  asyncHandler from 'express-async-handler';
+import asyncHandler from 'express-async-handler';
 import Brand from '../model/brandModel'
 import * as factory from './handleFactory';
 import sharp from 'sharp';
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { Request, Response, NextFunction } from 'express';
 import { uploadSingleImage } from '../middlewares/uploadImageMiddleware';
 
@@ -15,7 +15,7 @@ export const resizeBrandImage = asyncHandler(
     async (req: Request, res: Response, next: NextFunction) => {
         if (!req.file) return next();
 
-        const filename = `brands-${uuidv4()}-${Date.now()}.jpeg`;
+        const filename = `brands-${crypto.randomUUID()}-${Date.now()}.jpeg`;
 
         await sharp(req.file.buffer)
             .resize(600, 600)

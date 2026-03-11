@@ -2,7 +2,7 @@ import products from '../model/productsModel'
 import * as factory from './handleFactory';
 import asyncHandler from 'express-async-handler';
 import sharp from 'sharp';
-import { v4 as uuidv4 } from 'uuid';
+import crypto from 'crypto';
 import { uploadMixOfImages } from '../middlewares/uploadImageMiddleware';
 
 
@@ -27,7 +27,7 @@ export const resizeProductImages = asyncHandler(
         };
 
         if (files.imageCover && files.imageCover.length > 0) {
-            const imageCoverFileName = `product-${uuidv4()}-${Date.now()}-cover.jpeg`;
+            const imageCoverFileName = `product-${crypto.randomUUID()}-${Date.now()}-cover.jpeg`;
 
             await sharp(files.imageCover[0].buffer)
                 .resize(2000, 1333)
@@ -44,7 +44,7 @@ export const resizeProductImages = asyncHandler(
             await Promise.all(
                 files.images.map(
                     async (img: Express.Multer.File, index: number) => {
-                        const imageName = `product-${uuidv4()}-${Date.now()}-${index + 1}.jpeg`;
+                        const imageName = `product-${crypto.randomUUID()}-${Date.now()}-${index + 1}.jpeg`;
 
                         await sharp(img.buffer)
                             .resize(2000, 1333)
