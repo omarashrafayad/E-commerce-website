@@ -2,9 +2,9 @@
 "use server";
 import axios, { AxiosInstance } from "axios";
 import { cookies } from "next/headers";
-
+const API_URL = process.env.NEXT_PUBLIC_API_URL;
 export const serverAxios: AxiosInstance = axios.create({
-  baseURL: "http://localhost:5000/api/v1/",
+  baseURL: API_URL,
   withCredentials: true,
   headers: { "Content-Type": "application/json", Accept: "application/json" },
 });

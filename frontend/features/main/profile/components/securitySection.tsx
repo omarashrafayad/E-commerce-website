@@ -12,6 +12,7 @@ import { Card, CardContent, CardDescription, CardFooter, CardHeader, CardTitle }
 import { Separator } from "@/components/ui/separator";
 import { Spinner } from "@/components/ui/spinner";
 import { UniInput } from "@/components/shared/UniInput";
+import { Form } from "@/components/ui/form";
 
 
 export default function SecuritySection() {
@@ -65,6 +66,7 @@ export default function SecuritySection() {
           </div>
         </CardHeader>
         <Separator />
+        <Form {...form}>
         <form onSubmit={handleSubmit(onSubmit)}>
           <CardContent className="space-y-6 pt-6">
 
@@ -111,6 +113,7 @@ export default function SecuritySection() {
             </Button>
           </CardFooter>
         </form>
+        </Form>
       </Card>
     </div>
   );
