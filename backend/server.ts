@@ -23,22 +23,22 @@ import ApiError from './utils/apiError'
 
 dotenv.config({ path: './config.env' })
 
-DBconnection();
-
 const app = express();
+
+
 app.use(cors());
 app.options(/.*/, cors());
 
-// app.use(cors({
-//   origin: "http://localhost:3000",
-//   credentials: true,
-// }));
-
-// app.options(/.*/, cors({
-//   origin: "http://localhost:3000",
-//   credentials: true,
-// }));
 app.use(express.json());
+
+app.use(async (req: Request, res: Response, next: NextFunction) => {
+  try {
+    await DBconnection(); 
+    next();
+  } catch (error) {
+    next(new ApiError('Database connection failed', 500));
+  }
+});
 app.use(express.static(path.join(__dirname, 'uploads')));
 app.set('query parser', 'extended');
 
