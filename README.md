@@ -1,3 +1,14 @@
+# 🛒 AuraShop: Modern Full-Stack E-Commerce Solution
+
+[![Next.js](https://img.shields.io/badge/Next.js-16+-black?style=for-the-badge&logo=next.js&logoColor=white)](https://nextjs.org/)
+[![TypeScript](https://img.shields.io/badge/TypeScript-5+-blue?style=for-the-badge&logo=typescript&logoColor=white)](https://www.typescriptlang.org/)
+[![Tailwind CSS](https://img.shields.io/badge/Tailwind_CSS-4-38B2AC?style=for-the-badge&logo=tailwind-css&logoColor=white)](https://tailwindcss.com/)
+[![Node.js](https://img.shields.io/badge/Node.js-20+-339933?style=for-the-badge&logo=node.js&logoColor=white)](https://nodejs.org/)
+[![MongoDB](https://img.shields.io/badge/MongoDB-9+-47A248?style=for-the-badge&logo=mongodb&logoColor=white)](https://www.mongodb.com/)
+
+An enterprise-grade, high-performance e-commerce platform built with **Next.js 16**, **TypeScript**, and **Node.js**. Engineered for scalability, visual excellence, and a seamless user experience across all devices.
+
+---
 
 ## 🌟 Project Overview
 
@@ -34,6 +45,7 @@
 *   **Dynamic Product Discovery:** Advanced filtering, sorting, and category-based navigation.
 *   **Persistent Shopping Cart:** Real-time cart synchronization across sessions.
 *   **Wishlist & Personalization:** High-speed user collections for a curated shopping journey.
+*   **Dark Mode & RTL:** Full support for system-based themes and Right-to-Left languages (Arabic).
 
 ### **📊 The Management Experience**
 *   **Role-Based Dashboards:** Secure portals for Admins and Instructors.
