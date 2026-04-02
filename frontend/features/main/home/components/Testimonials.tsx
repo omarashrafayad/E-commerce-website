@@ -60,7 +60,7 @@ export default function Testimonials() {
                                     ))}
                                 </div>
 
-                                <blockquote className="text-zinc-700 dark:text-zinc-300 leading-relaxed">
+                                <blockquote className="text-zinc-700 dark:text-zinc-300 leading-relaxed line-clamp-3 ">
                                     {testimonial.content}
                                 </blockquote>
 

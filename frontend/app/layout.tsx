@@ -1,5 +1,4 @@
-import Navbar from "../components/layout/Navbar";
-import Footer from "../components/layout/Footer";
+
 import "./globals.css";
 import Providers from "./providers";
 import AuthInitializer from "@/features/auth/components/AuthInitializer";
@@ -20,14 +19,11 @@ export default async function RootLayout({ children }: { children: React.ReactNo
         <Providers>
           <AuthInitializer user={user} token={token} />
           <Toaster />
-        <Navbar />
         <main className="min-h-screen">
             {children}
         </main>
-        <Footer />
         </Providers>
       </body>
     </html>
   );
 }
-

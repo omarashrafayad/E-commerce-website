@@ -1,4 +1,5 @@
-"use client"
+"use client";
+
 import Hero from "@/features/main/home/components/Hero";
 import FeaturedCategories from "@/features/main/home/components/FeaturedCategories";
 import FeaturedProducts from "@/features/main/home/components/FeaturedProducts";

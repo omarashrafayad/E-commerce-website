@@ -36,7 +36,7 @@ export default function VerifyCodePage() {
       onSuccess: (res: AuthActionResult) => {
         toast.success(res.message || "Code verified successfully");
         setTimeout(() => {
-          router.push("/reset-password");
+          router.push("/auth/reset-password");
         }, 1500);
       },
       onError: (err: AuthActionResult) => {

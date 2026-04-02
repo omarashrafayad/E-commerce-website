@@ -107,7 +107,7 @@ export default function Navbar() {
                 </button>
               </Link>
             ) : (
-              <Link href="/login">
+              <Link href="/auth/login">
                 <button className="inline-flex items-center justify-center rounded-full h-10 w-10 hover:bg-primary/90 cursor-pointer transition-colors lg:bg-primary lg:text-primary-foreground lg:w-auto lg:px-5 lg:h-9 lg:text-xs lg:font-semibold">
                   <LogIn className="size-5 lg:hidden" />
                   <span className="hidden lg:block">Sign In</span>

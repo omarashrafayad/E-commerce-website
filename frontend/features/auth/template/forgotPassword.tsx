@@ -35,7 +35,7 @@ export default function ForgotPasswordPage() {
             onSuccess: (res: AuthActionResult) => {
                 toast.success(res.message || "Check your email for reset link");
                 setTimeout(() => {
-                    router.push("/verify-code");
+                    router.push("/auth/verify-code");
                 }, 2000);
             },
             onError: (err: AuthActionResult) => {

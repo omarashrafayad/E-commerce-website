@@ -1,5 +1,5 @@
 import Link from "next/link";
-import { Facebook, Twitter, Instagram, Linkedin, Github } from "lucide-react";
+import { Facebook, Twitter, Instagram, Linkedin } from "lucide-react";
 
 export default function Footer() {
     return (
@@ -47,11 +47,6 @@ export default function Footer() {
                                     Categories
                                 </Link>
                             </li>
-                            {/* <li>
-                                <Link href="/offers" className="text-muted-foreground text-sm hover:text-primary transition-colors">
-                                    Offers
-                                </Link>
-                            </li> */}
                             <li>
                                 <Link href="/shop?sort=newest" className="text-muted-foreground text-sm hover:text-primary transition-colors">
                                     New Arrivals
@@ -74,16 +69,6 @@ export default function Footer() {
                                     Contact Us
                                 </Link>
                             </li>
-                            {/* <li>
-                                <Link href="/faq" className="text-muted-foreground text-sm hover:text-primary transition-colors">
-                                    FAQs
-                                </Link>
-                            </li> */}
-                            {/* <li>
-                                <Link href="/orders/track" className="text-muted-foreground text-sm hover:text-primary transition-colors">
-                                    Order Tracking
-                                </Link>
-                            </li> */}
                             <li>
                                 <Link href="/about" className="text-muted-foreground text-sm hover:text-primary transition-colors">
                                     About Us
@@ -122,9 +107,6 @@ export default function Footer() {
                         <Link href="/privacy-policy" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
                             Privacy Policy
                         </Link>
-                        {/* <Link href="/terms-and-conditions" className="text-sm text-muted-foreground hover:text-foreground transition-colors">
-                            Terms & Conditions
-                        </Link> */}
                     </div>
                 </div>
             </div>
