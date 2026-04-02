@@ -34,7 +34,7 @@ export default function ProfilePage() {
     await logoutAction();
     logout();
     toast.success("Logged out successfully");
-    router.push("/login");
+    router.push("/auth/login");
   };
   return (
     <div className="container max-w-7xl mx-auto py-8 px-4 md:px-8">
