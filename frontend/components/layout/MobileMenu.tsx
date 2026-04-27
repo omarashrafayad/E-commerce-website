@@ -110,7 +110,7 @@ export default function MobileMenu({ isOpen, onClose, token, navLinks }: MobileM
                   Shopping Cart
                 </Link>
                 <Link
-                  href={token ? "/profile" : "/login"}
+                  href={token ? "/profile" : "/auth/login"}
                   onClick={onClose}
                   className="flex items-center gap-4 px-4 py-4 rounded-xl text-base font-semibold hover:bg-accent hover:translate-x-1 transition-all"
                 >
